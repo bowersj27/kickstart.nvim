@@ -16,7 +16,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -246,6 +246,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
+        { '<leader>a', group = '[A]sk' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
@@ -847,6 +848,42 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
+  -- Use your favorite package manager to install, for example in lazy.nvim
+  --  Optionally, you can also install nvim-telescope/telescope.nvim to use some search functionality.
+  --[[
+  {
+    'sourcegraph/sg.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    opts = {},
+    -- vim.keymap.set('n', '<leader>ss', , { desc = '[S]earch [S]ourcegraph' })
+    keys = {
+      {
+        '<leader>si',
+        '<cmd> lua require("sg.extensions.telescope").fuzzy_search_results()<CR>',
+        mode = 'n',
+        desc = '[S]earch [I]ndeed',
+      },
+      {
+        '<leader>ai',
+        ':CodyChat<CR>',
+        mode = 'n',
+        desc = '[A]sk Cody',
+      },
+      {
+        '<leader>ai',
+        'y:CodyChat<CR><ESC>pG$a<CR>',
+        mode = 'v',
+        desc = 'Chat Selected Code',
+      },
+      
+    },
+  },
+  --]]
+
+  --
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -893,3 +930,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
